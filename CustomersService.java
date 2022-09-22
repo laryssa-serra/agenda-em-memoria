@@ -9,14 +9,12 @@ import java.util.regex.Pattern;
 public class CustomersService {
     private List<Customer> customerList = new ArrayList<>();
 
-    //lista todos os clientes ativos
     public List<Customer> listCustomers() {
         return customerList.stream()
                 .filter(customer -> customer.isActivated())
                 .collect(Collectors.toList());
     }
 
-    //compara se existe algum usuário com o cpf em especifico
     public Customer getCustomer(String cpf) throws NotFoundException {
         for(int i = 0; i < customerList.size(); i++){
             if(customerList.get(i).getCpf().equals(cpf) && customerList.get(i).isActivated()){
@@ -45,7 +43,6 @@ public class CustomersService {
         }
 
         customerList.add(customer);
-//        System.out.println("Usuário cadastrado com sucesso!");
         return customer;
     }
 
@@ -88,7 +85,6 @@ public class CustomersService {
         customerFound.setActivated(false);
 
         customerList.set(customerIndex, customerFound);
-        // System.out.println(customerList);
     }
 
     public boolean areTelephonesValids (List<Telephone> telephones) {
@@ -107,7 +103,6 @@ public class CustomersService {
                .anyMatch(customer -> customer.getCpf().equals(cpf));
        }
 
-    //valida se campo email esta correto
     private boolean isEmailValid(String email){
         if (email != null && email.length() > 0) {
             String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
@@ -120,7 +115,6 @@ public class CustomersService {
         return false;
     }
 
-    //valida se campo telefone esta correto
     private boolean isTelephoneValid(String telephone){
         telephone = telephone.replaceAll("\\D", "");
 
@@ -159,10 +153,8 @@ public class CustomersService {
         return true;
     }
 
-    //valida se cpf esta correto
     private boolean isCpfValid(String cpf){
 
         return cpf.matches("([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})");
-
     }
 }
